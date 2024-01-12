@@ -1,9 +1,13 @@
 .POSIX:
 
 env ?= prod
-export KUBECONFIG = $(shell pwd)/kubeconfig.yaml
+export KUBECONFIG = $(shell pwd)/kubeconfig-${env}.yaml
 
+ifeq ($(env), dev)
+default: k3d
+else
 default: boot cluster
+endif
 
 ~/.ssh/id_ed25519:
 	ssh-keygen -t ed25519 -P '' -f "$@"
@@ -21,3 +25,7 @@ cluster:
 console:
 	ansible-console \
 		--inventory inventories/${env}.yml
+
+k3d:
+	k3d cluster start homelab-${env} || k3d cluster create --config k3d-${env}.yaml
+	k3d kubeconfig get homelab-${env} > kubeconfig-${env}.yaml
