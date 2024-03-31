@@ -1,0 +1,41 @@
+- name: Bootstrapping the cluster
+  hosts: localhost
+  vars:
+    # TODO
+    bootstrap_apps:
+      - argocd
+  tasks:
+    - name: Check if this is the first installation
+      kubernetes.core.k8s_info:
+        kind: Pod
+        label_selectors:
+          - app.kubernetes.io/instance=gitea
+        field_selectors:
+          - status.phase=Running
+      register: first_install
+    - set_fact:
+        first_install: "{{ first_install.resources == [] }}"
+    - name: Create namespace
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: argocd
+        state: present
+    - name: Render application manifests
+      kubernetes.core.helm_template:
+        chart_ref: ./argocd
+        include_crds: true
+        release_name: argocd
+        release_namespace: argocd
+        dependency_update: true
+        values_files:
+          # Order matters
+          - "argocd/values-{{ lookup('ansible.builtin.env', 'env') }}.yaml"
+          - "argocd/{{ first_install | ternary('values-seed.yaml', 'values.yaml') }}"
+      register: rendered
+    - name: Apply rendered manifests
+      kubernetes.core.k8s:
+        resource_definition: "{{ rendered.stdout }}"
+        apply: true
+        server_side_apply:
+          field_manager: argocd-controller

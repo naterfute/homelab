@@ -10,7 +10,7 @@ KUBE_CONFIG_PATH = $(KUBECONFIG)
 ifeq ($(env), dev)
 default: metal bootstrap smoke-test post-install clean
 else
-default: metal bootstrap external smoke-test
+default: metal system external smoke-test post-install clean
 endif
 
 configure:
@@ -53,10 +53,6 @@ test:
 
 clean:
 	docker compose --project-directory ./metal/roles/pxe_server/files down
-
-dev:
-	make -C metal cluster env=dev
-	make -C bootstrap
 
 docs:
 	mkdocs serve
