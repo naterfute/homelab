@@ -1,0 +1,10 @@
+zot:
+  ingress:
+    hosts:
+      - host: &host registry.127-0-0-1.nip.io
+        paths:
+          - path: /
+    tls:
+      - secretName: zot-tls-certificate
+        hosts:
+          - *host

@@ -8,7 +8,7 @@ KUBECONFIG = $(shell pwd)/metal/kubeconfig-${env}.yaml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
 ifeq ($(env), dev)
-default: metal bootstrap smoke-test post-install clean
+default: metal system smoke-test post-install
 else
 default: metal system external smoke-test post-install clean
 endif
@@ -20,8 +20,8 @@ configure:
 metal:
 	make -C metal env=${env}
 
-bootstrap:
-	make -C bootstrap env=${env}
+system:
+	make -C system env=${env}
 
 external:
 	make -C external

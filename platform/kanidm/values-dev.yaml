@@ -1,0 +1,27 @@
+app-template:
+  configMaps:
+    config:
+      data:
+        server.toml: |
+          bindaddress = "[::]:443"
+          ldapbindaddress = "[::]:636"
+          # trust_x_forward_for = false
+          db_path = "/data/kanidm.db"
+          tls_chain = "/data/ca.crt"
+          tls_key = "/data/tls.key"
+          domain = "auth.127-0-0-1.nip.io"
+          origin = "https://auth.127-0-0-1.nip.io"
+  ingress:
+    main:
+      hosts:
+        - host: &host auth.127-0-0-1.nip.io
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                name: main
+                port: https
+      tls:
+        - hosts:
+            - *host
+          secretName: kanidm-tls-certificate

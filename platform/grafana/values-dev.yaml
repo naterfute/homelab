@@ -6,3 +6,10 @@ grafana:
       - secretName: grafana-general-tls
         hosts:
           - *host
+  grafana.ini:
+    server:
+      root_url: https://grafana.127-0-0-1.nip.io
+    auth.generic_oauth:
+      auth_url: https://dex.127-0-0-1.nip.io/auth
+      token_url: https://dex.127-0-0-1.nip.io/token
+      api_url: https://dex.127-0-0-1.nip.io/userinfo

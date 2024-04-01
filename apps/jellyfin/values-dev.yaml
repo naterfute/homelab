@@ -1,0 +1,55 @@
+app-template:
+  ingress:
+    main:
+      hosts:
+        - host: &jellyfinHost jellyfin.127-0-0-1.nip.io
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                name: main
+                port: http
+        - host: &transmissionHost transmission.127-0-0-1.nip.io
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                name: main
+                port: transmission
+        - host: &prowlarrHost prowlarr.127-0-0-1.nip.io
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                name: main
+                port: prowlarr
+        - host: &radarrHost radarr.127-0-0-1.nip.io
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                name: main
+                port: radarr
+        - host: &sonarrHost sonarr.127-0-0-1.nip.io
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                name: main
+                port: sonarr
+        - host: &jellyseerrHost jellyseerr.127-0-0-1.nip.io
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                name: main
+                port: jellyseerr
+      tls:
+        - secretName: jellyfin-tls-certificate
+          hosts:
+            - *jellyfinHost
+            - *transmissionHost
+            - *prowlarrHost
+            - *radarrHost
+            - *sonarrHost
+            - *jellyseerrHost

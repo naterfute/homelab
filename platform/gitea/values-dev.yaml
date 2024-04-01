@@ -1,0 +1,15 @@
+gitea:
+  ingress:
+    hosts:
+      - host: &host git.127-0-0-1.nip.io
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: gitea-tls-certificate
+        hosts:
+          - *host
+  gitea:
+    config:
+      server:
+        ROOT_URL: https://git.127-0-0-1.nip.io
