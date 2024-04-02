@@ -8,7 +8,7 @@ KUBECONFIG = $(shell pwd)/metal/kubeconfig-${env}.yaml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
 ifeq ($(env), dev)
-default: metal system smoke-test post-install
+default: metal system smoke-test
 else
 default: metal system external smoke-test post-install clean
 endif

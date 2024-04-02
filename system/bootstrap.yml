@@ -1,10 +1,30 @@
 - name: Bootstrapping the cluster
   hosts: localhost
-  vars:
-    # TODO
-    bootstrap_apps:
-      - argocd
   tasks:
+    - name: Render Cilium manifests from Helm chart
+      kubernetes.core.helm_template:
+        chart_ref: ./cilium
+        include_crds: true
+        release_name: cilium
+        release_namespace: kube-system
+        dependency_update: true
+        values_files:
+          - "cilium/values-{{ lookup('ansible.builtin.env', 'env') }}.yaml"
+      when: lookup('ansible.builtin.env', 'env') != 'dev'
+      register: cilium_manifests
+    - name: Apply Cilium manifests
+      kubernetes.core.k8s:
+        resource_definition: "{{ cilium_manifests.stdout }}"
+        apply: true
+        server_side_apply:
+          field_manager: argocd-controller
+      when: lookup('ansible.builtin.env', 'env') != 'dev'
+    - name: Create ArgoCD namespace
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: argocd
+        state: present
     - name: Check if this is the first installation
       kubernetes.core.k8s_info:
         kind: Pod
@@ -13,15 +33,7 @@
         field_selectors:
           - status.phase=Running
       register: first_install
-    - set_fact:
-        first_install: "{{ first_install.resources == [] }}"
-    - name: Create namespace
-      kubernetes.core.k8s:
-        api_version: v1
-        kind: Namespace
-        name: argocd
-        state: present
-    - name: Render application manifests
+    - name: Render ArgoCD manifests from Helm chart
       kubernetes.core.helm_template:
         chart_ref: ./argocd
         include_crds: true
@@ -31,11 +43,11 @@
         values_files:
           # Order matters
           - "argocd/values-{{ lookup('ansible.builtin.env', 'env') }}.yaml"
-          - "argocd/{{ first_install | ternary('values-seed.yaml', 'values.yaml') }}"
-      register: rendered
-    - name: Apply rendered manifests
+          - "argocd/{{ (first_install.resources == []) | ternary('values-seed.yaml', 'values.yaml') }}"
+      register: argocd_manifests
+    - name: Apply ArgoCD manifests
       kubernetes.core.k8s:
-        resource_definition: "{{ rendered.stdout }}"
+        resource_definition: "{{ argocd_manifests.stdout }}"
         apply: true
         server_side_apply:
           field_manager: argocd-controller

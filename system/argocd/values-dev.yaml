@@ -12,6 +12,12 @@ argocd-apps:
               - path: system/*
               - path: platform/*
               - path: apps/*
+
+              # TODO Cilium and Ceph doesn't work in dev sandbox yet
+              - path: system/cilium
+                exclude: true
+              - path: system/rook-ceph
+                exclude: true
       template:
         spec:
           source:

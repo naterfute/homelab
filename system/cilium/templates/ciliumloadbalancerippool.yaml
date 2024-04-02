@@ -1,0 +1,11 @@
+{{ if .Values.cilium.l2announcements.enabled }}
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: default
+spec:
+  cidrs:
+    {{- range .Values.cilium.l2announcements.ipPool }}
+    - cidr: {{ . }}
+    {{- end }}
+{{ end }}

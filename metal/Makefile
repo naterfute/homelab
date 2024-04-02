@@ -1,7 +1,6 @@
 .POSIX:
 
 env ?= prod
-export KUBECONFIG = $(shell pwd)/kubeconfig-${env}.yaml
 
 ifeq ($(env), dev)
 default: k3d
@@ -27,5 +26,5 @@ console:
 		--inventory inventories/${env}.yml
 
 k3d:
-	k3d cluster start homelab-${env} || k3d cluster create --config k3d-${env}.yaml
+	k3d cluster start homelab-${env} || K3D_FIX_MOUNTS=true k3d cluster create --config k3d-${env}.yaml
 	k3d kubeconfig get homelab-${env} > kubeconfig-${env}.yaml
