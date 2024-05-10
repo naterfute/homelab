@@ -42,3 +42,12 @@ app-template:
       globalMounts:
         - path: /etc/cloudflared/credentials.json
           subPath: credentials.json
+
+route53:
+  enabled: true
+  region: us-east-1
+  zoneID: "route53-zoneid"
+  credentials:
+    accessKeyID: "accesskeyid"
+    secretAccessKey: "secretaccesskey"
+
