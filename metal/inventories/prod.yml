@@ -8,8 +8,12 @@ metal:
     masters:
       hosts:
         metal0: {ansible_host: 10.77.5.110, mac: 'de:0c:1e:f1:61:10', disk: sda, network_interface: eno1}
-        metal1: {ansible_host: 10.77.5.111, mac: '36:d2:26:27:6d:5c', disk: sda, network_interface: eno1}
-        metal2: {ansible_host: 10.77.5.112, mac: 'da:87:54:31:4d:eb', disk: sda, network_interface: eno1}
+        metal1: {ansible_host: 10.77.5.111, mac: 'da:87:54:31:4d:eb', disk: sda, network_interface: eno1}
+        metal2: {ansible_host: 10.77.5.112, mac: '36:d2:26:27:6d:5c', disk: sda, network_interface: eno1}
     workers:
       hosts:
         metal3: {ansible_host: 10.77.5.113, mac: '02:74:59:78:53:4b', disk: sda, network_interface: eno1}
+
+
+
+
