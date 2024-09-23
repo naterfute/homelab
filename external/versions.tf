@@ -11,10 +11,9 @@ terraform {
   }
 
   required_providers {
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 4.30.0"
-    }
+    route53 = {
+      source = "hashicorp/aws"
+      version = "~> 5.68.0"
 
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -28,10 +27,12 @@ terraform {
   }
 }
 
-provider "cloudflare" {
-  email   = var.cloudflare_email
-  api_key = var.cloudflare_api_key
-}
+
+provider "route53" {
+  region = var.aws_region
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+  }
 
 provider "kubernetes" {
   # Use KUBE_CONFIG_PATH environment variables
