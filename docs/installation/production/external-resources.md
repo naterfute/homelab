@@ -7,14 +7,12 @@
 Although I try to keep the amount of external resources to the minimum, there's still need for a few of them.
 Below is a list of external resources and why we need them (also see some [alternatives](#alternatives) below).
 
-| Provider        | Resource        | Purpose                                                                                                                     |
-| --------        | --------        | -------                                                                                                                     |
-| Terraform Cloud | Workspace       | Terraform state backend                                                                                                     |
-| Cloudflare      | DNS             | DNS and [DNS-01 challenge](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge) for certificates                 |
-| Cloudflare      | Tunnel          | Public services to the internet without port forwarding                                                                     |
-| ntfy            | Topic           | External notification service to receive alerts                                                                             |
-<!-- | Minio           | Bucket     | Onsite backup                                                                                               | -->
-<!-- | AWS             | S3 Glacier | Offsite backup                                                                                              | -->
+| Provider        | Resource  | Purpose                                                                                                     |
+| --------        | --------  | -------                                                                                                     |
+| Terraform Cloud | Workspace | Terraform state backend                                                                                     |
+| Cloudflare      | DNS       | DNS and [DNS-01 challenge](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge) for certificates |
+| Cloudflare      | Tunnel    | Public services to the internet without port forwarding                                                     |
+| ntfy            | Topic     | External notification service to receive alerts                                                             |
 
 ## Create credentials
 
@@ -26,7 +24,7 @@ Terraform is stateful, which means it needs somewhere to store its state. Terraf
 
 1. Sign up for a [Terraform Cloud](https://cloud.hashicorp.com/products/terraform) account
 2. Create a workspace named `homelab-external`, this is the workspace where your homelab state will be stored.
-3. Change the "Execution Mode" from "Remote" to "Local". This will ensure your local machine, which can access your lab, is the one executing the terraform plan rather than the cloud runners.
+3. Change the "Execution Mode" from "Remote" to "Local". This will ensure your local machine, which can access your lab, is the one executing the Terraform plan rather than the cloud runners.
 
 If you decide to use a [different Terraform backend](https://www.terraform.io/language/settings/backends#available-backends), you'll need to edit the `external/versions.tf` file as required.
 
@@ -79,4 +77,3 @@ To avoid vendor lock-in, each external provider must have an equivalent alternat
 - ntfy:
     - [Self-host your own ntfy server](https://docs.ntfy.sh/install)
     - Any other [integration supported by Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/alerting-rules/manage-contact-points/integrations/#list-of-supported-integrations)
-<!-- - Minio and S3 Glacier: any S3 compatible object storage, such as Backblaze B2, Minio... -->
