@@ -2,6 +2,7 @@
 
 env ?= prod
 export KUBECONFIG = $(shell pwd)/kubeconfig.yaml
+export LC_ALL=C.UTF-8
 
 default: boot cluster
 
