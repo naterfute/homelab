@@ -4,6 +4,12 @@
 
 KUBECONFIG = $(shell pwd)/metal/kubeconfig.yaml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
+LC_ALL=C.UTF-8
+LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
+
 
 default: metal system external smoke-test post-install clean
 
