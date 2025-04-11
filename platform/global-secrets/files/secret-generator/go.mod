@@ -1,4 +1,4 @@
-module git.lab.pyrodactyl.dev/khuedoan/homelab/platform/secret-generator
+module git.lookmatches.com/khuedoan/homelab/platform/secret-generator
 
 go 1.19
 

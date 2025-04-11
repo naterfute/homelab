@@ -57,42 +57,42 @@ app-template:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &jellyfinHost jellyfin.lab.pyrodactyl.dev
+        - host: &jellyfinHost jellyfin.lookmatches.com
           paths:
             - path: /
               pathType: Prefix
               service:
                 name: main
                 port: http
-        - host: &transmissionHost transmission.lab.pyrodactyl.dev
+        - host: &transmissionHost transmission.lookmatches.com
           paths:
             - path: /
               pathType: Prefix
               service:
                 name: main
                 port: transmission
-        - host: &prowlarrHost prowlarr.lab.pyrodactyl.dev
+        - host: &prowlarrHost prowlarr.lookmatches.com
           paths:
             - path: /
               pathType: Prefix
               service:
                 name: main
                 port: prowlarr
-        - host: &radarrHost radarr.lab.pyrodactyl.dev
+        - host: &radarrHost radarr.lookmatches.com
           paths:
             - path: /
               pathType: Prefix
               service:
                 name: main
                 port: radarr
-        - host: &sonarrHost sonarr.lab.pyrodactyl.dev
+        - host: &sonarrHost sonarr.lookmatches.com
           paths:
             - path: /
               pathType: Prefix
               service:
                 name: main
                 port: sonarr
-        - host: &jellyseerrHost jellyseerr.lab.pyrodactyl.dev
+        - host: &jellyseerrHost jellyseerr.lookmatches.com
           paths:
             - path: /
               pathType: Prefix

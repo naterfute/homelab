@@ -5,7 +5,7 @@ gitea:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
-      - host: &host git.lab.pyrodactyl.dev
+      - host: &host git.lookmatches.com
         paths:
           - path: /
             pathType: Prefix
@@ -19,7 +19,7 @@ gitea:
     config:
       server:
         LANDING_PAGE: explore
-        ROOT_URL: https://git.lab.pyrodactyl.dev
+        ROOT_URL: https://git.lookmatches.com
         OFFLINE_MODE: true
       repository:
         DISABLED_REPO_UNITS: repo.wiki,repo.projects,repo.packages

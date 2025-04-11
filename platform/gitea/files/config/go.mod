@@ -1,4 +1,4 @@
-module git.lab.pyrodactyl.dev/khuedoan/homelab/gitea/config
+module git.lookmatches.com/khuedoan/homelab/gitea/config
 
 go 1.19
 

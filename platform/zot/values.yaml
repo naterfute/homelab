@@ -6,7 +6,7 @@ zot:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
     className: nginx
     hosts:
-      - host: &host registry.lab.pyrodactyl.dev
+      - host: &host registry.lookmatches.com
         paths:
           - path: /
     tls:
