@@ -4,10 +4,10 @@ elementweb:
     className: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      external-dns.alpha.kubernetes.io/target: "homelab-tunnel.lab.pyrodactyl.dev"
+      external-dns.alpha.kubernetes.io/target: "homelab-tunnel.khuedoan.com"
       external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
     hosts:
-      - host: &frontend_host chat.lab.pyrodactyl.dev
+      - host: &frontend_host chat.khuedoan.com
         paths:
           - path: /
             pathType: Prefix
@@ -17,22 +17,22 @@ elementweb:
           - *frontend_host
   config:
     default:
-      base_url: https://matrix.lab.pyrodactyl.dev
-      server_name: lab.pyrodactyl.dev
+      base_url: https://matrix.khuedoan.com
+      server_name: khuedoan.com
 
 dendrite:
   dendrite_config:
     global:
-      server_name: matrix.lab.pyrodactyl.dev
+      server_name: matrix.khuedoan.com
   ingress:
     enabled: true
     className: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-    hostName: matrix.lab.pyrodactyl.dev
+    hostName: matrix.khuedoan.com
     tls:
       - hosts:
-          - matrix.lab.pyrodactyl.dev
+          - matrix.khuedoan.com
         secretName: matrix-tls-certificate
   postgresql:
     enabled: true

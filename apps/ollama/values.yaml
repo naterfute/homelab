@@ -33,14 +33,14 @@ app-template:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: &ollamaHost ollama.lab.pyrodactyl.dev
+        - host: &ollamaHost ollama.khuedoan.com
           paths:
             - path: /
               pathType: Prefix
               service:
                 name: main
                 port: http
-        - host: &uiHost ai.lab.pyrodactyl.dev
+        - host: &uiHost ai.khuedoan.com
           paths:
             - path: /
               pathType: Prefix
